@@ -151,7 +151,7 @@ impl Simplifier {
                 Expression::Power(Box::new(sbase), Box::new(sexp))
             }
             Expression::FunctionCall(name, args) => {
-                let sargs: Vec<Expression> = args.iter().map(|arg| Self::simplify(arg)).collect();
+                let sargs: Vec<Expression> = args.iter().map(Self::simplify).collect();
                 Expression::FunctionCall(name.clone(), sargs)
             }
             _ => expr.clone(),

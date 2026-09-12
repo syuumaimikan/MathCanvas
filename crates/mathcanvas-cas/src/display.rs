@@ -49,7 +49,7 @@ pub fn format_expression(expr: &Expression) -> String {
             format!("{}^{}", left, format_expression(b))
         }
         Expression::FunctionCall(name, args) => {
-            let args_str: Vec<String> = args.iter().map(|arg| format_expression(arg)).collect();
+            let args_str: Vec<String> = args.iter().map(format_expression).collect();
             format!("{}({})", name, args_str.join(", "))
         }
     }

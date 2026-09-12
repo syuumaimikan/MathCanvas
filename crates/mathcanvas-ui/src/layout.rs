@@ -1,7 +1,10 @@
 use crate::calculator::CalculatorView;
+use crate::canvas::CanvasView;
 use crate::cas::CASView;
 use crate::graph2d::Graph2DView;
+use crate::graph3d::Graph3DView;
 use crate::notebook::NotebookView;
+use crate::settings_view::SettingsView;
 use egui::{Align, CentralPanel, Color32, Context, Layout as EguiLayout, RichText, SidePanel};
 
 #[derive(PartialEq)]
@@ -23,9 +26,12 @@ pub enum ViewMode {
 pub struct Layout {
     pub current_view: ViewMode,
     calculator: CalculatorView,
+    canvas: CanvasView,
     notebook: NotebookView,
     graph2d: Graph2DView,
+    graph3d: Graph3DView,
     cas: CASView,
+    settings: SettingsView,
 }
 
 impl Layout {
@@ -33,9 +39,12 @@ impl Layout {
         Self {
             current_view: ViewMode::Home,
             calculator: CalculatorView::default(),
+            canvas: CanvasView::default(),
             notebook: NotebookView::default(),
             graph2d: Graph2DView::default(),
+            graph3d: Graph3DView::default(),
             cas: CASView::default(),
+            settings: SettingsView::default(),
         }
     }
 
@@ -66,6 +75,12 @@ impl Layout {
                         self.current_view = ViewMode::Notebook;
                     }
                     if ui
+                        .selectable_label(self.current_view == ViewMode::Handwriting, "✎ Canvas")
+                        .clicked()
+                    {
+                        self.current_view = ViewMode::Handwriting;
+                    }
+                    if ui
                         .selectable_label(
                             self.current_view == ViewMode::Calculator,
                             "🔢 Calculator",
@@ -81,10 +96,16 @@ impl Layout {
                         self.current_view = ViewMode::CAS;
                     }
                     if ui
-                        .selectable_label(self.current_view == ViewMode::Graph2D, "📈 Graph")
+                        .selectable_label(self.current_view == ViewMode::Graph2D, "📈 2D Graph")
                         .clicked()
                     {
                         self.current_view = ViewMode::Graph2D;
+                    }
+                    if ui
+                        .selectable_label(self.current_view == ViewMode::Graph3D, "🧊 3D Graph")
+                        .clicked()
+                    {
+                        self.current_view = ViewMode::Graph3D;
                     }
                     if ui
                         .selectable_label(
@@ -124,6 +145,9 @@ impl Layout {
                 ViewMode::Notebook => {
                     self.notebook.ui(ui);
                 }
+                ViewMode::Handwriting => {
+                    self.canvas.ui(ui);
+                }
                 ViewMode::Calculator => {
                     self.calculator.ui(ui);
                 }
@@ -133,6 +157,9 @@ impl Layout {
                 ViewMode::Graph2D => {
                     self.graph2d.ui(ui);
                 }
+                ViewMode::Graph3D => {
+                    self.graph3d.ui(ui);
+                }
                 ViewMode::Statistics => {
                     ui.heading("Statistics");
                 }
@@ -140,7 +167,7 @@ impl Layout {
                     ui.heading("History");
                 }
                 ViewMode::Settings => {
-                    ui.heading("Settings");
+                    self.settings.ui(ui);
                 }
                 _ => {
                     ui.heading("Work in progress");

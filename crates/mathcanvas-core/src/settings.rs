@@ -1,6 +1,6 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
 pub struct AppSettings {
     pub math: MathSettings,
     pub pen: PenSettings,
@@ -8,19 +8,6 @@ pub struct AppSettings {
     pub locale: LocaleSettings,
     pub notebook: NotebookSettings,
     pub platform: PlatformSettings,
-}
-
-impl Default for AppSettings {
-    fn default() -> Self {
-        Self {
-            math: MathSettings::default(),
-            pen: PenSettings::default(),
-            graph: GraphSettings::default(),
-            locale: LocaleSettings::default(),
-            notebook: NotebookSettings::default(),
-            platform: PlatformSettings::default(),
-        }
-    }
 }
 
 // ---------------------------------------------------------
@@ -35,30 +22,34 @@ pub struct MathSettings {
     pub precision: PrecisionSettings,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum AngleUnit {
-    #[default] Radian,
+    #[default]
+    Radian,
     Degree,
     Gradian,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum CalculationMode {
-    #[default] ExactAlgebraic, // Prioritize fractions, CAS
-    NumericApproximate,        // Fast floating point
+    #[default]
+    ExactAlgebraic, // Prioritize fractions, CAS
+    NumericApproximate, // Fast floating point
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum ComplexMode {
-    #[default] RealOnly,
+    #[default]
+    RealOnly,
     ComplexAuto,
     ImaginarySymbol(ImaginarySymbol),
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum ImaginarySymbol {
-    #[default] I, // Math standard
-    J,            // Engineering standard
+    #[default]
+    I, // Math standard
+    J, // Engineering standard
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -69,7 +60,10 @@ pub struct PrecisionSettings {
 
 impl Default for PrecisionSettings {
     fn default() -> Self {
-        Self { significant_digits: 10, bignum_bits: 256 }
+        Self {
+            significant_digits: 10,
+            bignum_bits: 256,
+        }
     }
 }
 
@@ -86,27 +80,36 @@ pub struct PenSettings {
     pub auto_shape_recognition: bool,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum PenInputMode {
-    #[default] StylusOnly,
+    #[default]
+    StylusOnly,
     Hybrid,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum Sensitivity {
-    Off, Low, #[default] Medium, High,
+    Off,
+    Low,
+    #[default]
+    Medium,
+    High,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum RecognitionTrigger {
-    #[default] RealTime,
+    #[default]
+    RealTime,
     ExplicitGesture,
     ManualButton,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum SmoothingLevel {
-    None, Weak, #[default] Strong,
+    None,
+    Weak,
+    #[default]
+    Strong,
 }
 
 // ---------------------------------------------------------
@@ -134,9 +137,10 @@ impl Default for GraphSettings {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum CoordinateSystem {
-    #[default] Cartesian,
+    #[default]
+    Cartesian,
     Polar,
     Logarithmic,
 }
@@ -153,22 +157,25 @@ pub struct LocaleSettings {
     pub default_font: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum DecimalStyle {
-    #[default] UsJapan,      // 1,234.56
-    EuropeanIso,         // 1.234,56
+    #[default]
+    UsJapan, // 1,234.56
+    EuropeanIso, // 1.234,56
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum MultiplySymbol {
-    #[default] Times, // x
-    Dot,              // .
+    #[default]
+    Times, // x
+    Dot, // .
     Implicit,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum DivideSymbol {
-    #[default] Fraction,
+    #[default]
+    Fraction,
     Div,   // ÷
     Slash, // /
 }
@@ -184,9 +191,10 @@ pub struct NotebookSettings {
     pub undo_stack_limit: usize,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 pub enum ReactiveMode {
-    #[default] Immediate,
+    #[default]
+    Immediate,
     ManualBatch,
 }
 

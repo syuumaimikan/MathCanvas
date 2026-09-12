@@ -30,11 +30,11 @@ impl CASView {
                     ui.group(|ui| {
                         ui.label(format!("Simplify: {} -> {}", expr_str, res_str));
                         ui.horizontal(|ui| {
-                            if ui.button("📋 LaTeX").clicked() {
+                            if ui.button(format!("{} LaTeX", material_icons::icon_to_char(material_icons::Icon::ContentCopy))).clicked() {
                                 println!("LaTeX: {}", ast.to_latex());
                                 // in a real app, copy to clipboard
                             }
-                            if ui.button("🐍 Python").clicked() {
+                            if ui.button(format!("{} Python", material_icons::icon_to_char(material_icons::Icon::Code))).clicked() {
                                 println!("Python: {}", ast.to_python());
                             }
                         });

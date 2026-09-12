@@ -2,19 +2,21 @@
 buildscript {
     ext.kotlin_version = "1.8.0"
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:8.0.2"
+        classpath "com.android.tools.build:gradle:7.4.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // Rust android gradle plugin for building rust code
-        classpath "org.mozilla.rust-android-gradle:plugin:0.9.3"
+        // classpath "org.mozilla.rust-android-gradle:plugin:0.9.4"
     }
 }
 
 allprojects {
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
     }

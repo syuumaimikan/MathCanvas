@@ -27,7 +27,20 @@ impl eframe::App for MathCanvasApp {
 }
 
 fn setup_fonts(ctx: &Context) {
-    let fonts = FontDefinitions::default();
+    let mut fonts = FontDefinitions::default();
+
+    fonts.font_data.insert(
+        "MaterialIcons".to_owned(),
+        egui::FontData::from_static(include_bytes!("../assets/MaterialIcons-Regular.ttf")),
+    );
+
+    if let Some(vec) = fonts.families.get_mut(&egui::FontFamily::Proportional) {
+        vec.push("MaterialIcons".to_owned());
+    }
+
+    if let Some(vec) = fonts.families.get_mut(&egui::FontFamily::Monospace) {
+        vec.push("MaterialIcons".to_owned());
+    }
 
     // We should ideally load a proper Japanese font from assets.
     // For now, let's rely on system fallback if possible or just use the default.

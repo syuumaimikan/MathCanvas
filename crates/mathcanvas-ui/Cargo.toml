@@ -11,3 +11,4 @@ mathcanvas-graph = { path = "../mathcanvas-graph" }
 mathcanvas-cas = { path = "../mathcanvas-cas" }
 egui.workspace = true
 eframe.workspace = true
+material-icons = "0.3.0"

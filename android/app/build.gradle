@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'org.mozilla.rust-android-gradle.rust-android'
+    // id 'org.mozilla.rust-android-gradle.rust-android'
 }
 
 android {
@@ -31,6 +31,7 @@ android {
     }
 }
 
+/*
 cargo {
     module = "../../crates/mathcanvas-app" // Path to the Cargo.toml containing the cdylib
     libname = "mathcanvas_app"
@@ -39,6 +40,7 @@ cargo {
     // eframe/android-activity requires certain features
     extraCargoBuildArguments = ["--features", "android"] 
 }
+*/
 
 afterEvaluate {
     // Ensure cargo builds before assembling the APK

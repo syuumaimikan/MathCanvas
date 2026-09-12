@@ -1746,6 +1746,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "material-icons"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "51749189f2b4bf6a522337b504a85a543b5e2af670cb08bcf48297ada61dc2d7"
+
+[[package]]
 name = "mathcanvas-app"
 version = "0.1.0"
 dependencies = [
@@ -1797,6 +1803,7 @@ version = "0.1.0"
 dependencies = [
  "eframe",
  "egui",
+ "material-icons",
  "mathcanvas-cas",
  "mathcanvas-core",
  "mathcanvas-graph",

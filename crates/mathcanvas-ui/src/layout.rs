@@ -63,19 +63,37 @@ impl Layout {
                     ui.add_space(20.0);
 
                     if ui
-                        .selectable_label(self.current_view == ViewMode::Home, "🏠 Home")
+                        .selectable_label(
+                            self.current_view == ViewMode::Home,
+                            format!(
+                                "{} Home",
+                                material_icons::icon_to_char(material_icons::Icon::Home)
+                            ),
+                        )
                         .clicked()
                     {
                         self.current_view = ViewMode::Home;
                     }
                     if ui
-                        .selectable_label(self.current_view == ViewMode::Notebook, "📓 Notebooks")
+                        .selectable_label(
+                            self.current_view == ViewMode::Notebook,
+                            format!(
+                                "{} Notebooks",
+                                material_icons::icon_to_char(material_icons::Icon::Book)
+                            ),
+                        )
                         .clicked()
                     {
                         self.current_view = ViewMode::Notebook;
                     }
                     if ui
-                        .selectable_label(self.current_view == ViewMode::Handwriting, "✎ Canvas")
+                        .selectable_label(
+                            self.current_view == ViewMode::Handwriting,
+                            format!(
+                                "{} Canvas",
+                                material_icons::icon_to_char(material_icons::Icon::Draw)
+                            ),
+                        )
                         .clicked()
                     {
                         self.current_view = ViewMode::Handwriting;
@@ -83,26 +101,47 @@ impl Layout {
                     if ui
                         .selectable_label(
                             self.current_view == ViewMode::Calculator,
-                            "🔢 Calculator",
+                            format!(
+                                "{} Calculator",
+                                material_icons::icon_to_char(material_icons::Icon::Calculate)
+                            ),
                         )
                         .clicked()
                     {
                         self.current_view = ViewMode::Calculator;
                     }
                     if ui
-                        .selectable_label(self.current_view == ViewMode::CAS, "⚡ CAS")
+                        .selectable_label(
+                            self.current_view == ViewMode::CAS,
+                            format!(
+                                "{} CAS",
+                                material_icons::icon_to_char(material_icons::Icon::ElectricBolt)
+                            ),
+                        )
                         .clicked()
                     {
                         self.current_view = ViewMode::CAS;
                     }
                     if ui
-                        .selectable_label(self.current_view == ViewMode::Graph2D, "📈 2D Graph")
+                        .selectable_label(
+                            self.current_view == ViewMode::Graph2D,
+                            format!(
+                                "{} 2D Graph",
+                                material_icons::icon_to_char(material_icons::Icon::ShowChart)
+                            ),
+                        )
                         .clicked()
                     {
                         self.current_view = ViewMode::Graph2D;
                     }
                     if ui
-                        .selectable_label(self.current_view == ViewMode::Graph3D, "🧊 3D Graph")
+                        .selectable_label(
+                            self.current_view == ViewMode::Graph3D,
+                            format!(
+                                "{} 3D Graph",
+                                material_icons::icon_to_char(material_icons::Icon::Category)
+                            ),
+                        )
                         .clicked()
                     {
                         self.current_view = ViewMode::Graph3D;
@@ -110,7 +149,10 @@ impl Layout {
                     if ui
                         .selectable_label(
                             self.current_view == ViewMode::Statistics,
-                            "📊 Statistics",
+                            format!(
+                                "{} Statistics",
+                                material_icons::icon_to_char(material_icons::Icon::BarChart)
+                            ),
                         )
                         .clicked()
                     {
@@ -118,13 +160,25 @@ impl Layout {
                     }
                     ui.add_space(20.0);
                     if ui
-                        .selectable_label(self.current_view == ViewMode::History, "⏳ History")
+                        .selectable_label(
+                            self.current_view == ViewMode::History,
+                            format!(
+                                "{} History",
+                                material_icons::icon_to_char(material_icons::Icon::History)
+                            ),
+                        )
                         .clicked()
                     {
                         self.current_view = ViewMode::History;
                     }
                     if ui
-                        .selectable_label(self.current_view == ViewMode::Settings, "⚙ Settings")
+                        .selectable_label(
+                            self.current_view == ViewMode::Settings,
+                            format!(
+                                "{} Settings",
+                                material_icons::icon_to_char(material_icons::Icon::Settings)
+                            ),
+                        )
                         .clicked()
                     {
                         self.current_view = ViewMode::Settings;
@@ -137,10 +191,34 @@ impl Layout {
                 ViewMode::Home => {
                     ui.heading("おかえりなさい"); // Testing Japanese text
                     ui.add_space(20.0);
-                    if ui.button("＋ 新しいノート").clicked() {}
-                    if ui.button("✎ 手書き計算").clicked() {}
-                    if ui.button("ƒ(x) グラフ").clicked() {}
-                    if ui.button("Σ 計算").clicked() {}
+                    if ui
+                        .button(format!(
+                            "{} 新しいノート",
+                            material_icons::icon_to_char(material_icons::Icon::Add)
+                        ))
+                        .clicked()
+                    {}
+                    if ui
+                        .button(format!(
+                            "{} 手書き計算",
+                            material_icons::icon_to_char(material_icons::Icon::Draw)
+                        ))
+                        .clicked()
+                    {}
+                    if ui
+                        .button(format!(
+                            "{} グラフ",
+                            material_icons::icon_to_char(material_icons::Icon::ShowChart)
+                        ))
+                        .clicked()
+                    {}
+                    if ui
+                        .button(format!(
+                            "{} 計算",
+                            material_icons::icon_to_char(material_icons::Icon::Calculate)
+                        ))
+                        .clicked()
+                    {}
                 }
                 ViewMode::Notebook => {
                     self.notebook.ui(ui);

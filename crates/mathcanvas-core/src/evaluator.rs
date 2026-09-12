@@ -1,7 +1,7 @@
 use crate::ast::Expression;
 use std::collections::HashMap;
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct Environment {
     pub variables: HashMap<String, f64>,
 }

@@ -2,10 +2,11 @@ use egui::{TextEdit, Ui};
 use mathcanvas_cas::display::format_expression;
 use mathcanvas_cas::simplifier::Simplifier;
 use mathcanvas_core::parser::Parser;
+use mathcanvas_core::ast::Expression;
 
 pub struct CASView {
     expression_input: String,
-    history: Vec<(String, String)>, // (Original, Simplified)
+    history: Vec<(String, Expression, String)>, // (Original, AST, SimplifiedStr)
 }
 
 impl Default for CASView {
@@ -25,8 +26,19 @@ impl CASView {
         egui::ScrollArea::vertical()
             .max_height(300.0)
             .show(ui, |ui| {
-                for (expr, res) in &self.history {
-                    ui.label(format!("Simplify: {} -> {}", expr, res));
+                for (expr_str, ast, res_str) in &self.history {
+                    ui.group(|ui| {
+                        ui.label(format!("Simplify: {} -> {}", expr_str, res_str));
+                        ui.horizontal(|ui| {
+                            if ui.button("📋 LaTeX").clicked() {
+                                println!("LaTeX: {}", ast.to_latex());
+                                // in a real app, copy to clipboard
+                            }
+                            if ui.button("🐍 Python").clicked() {
+                                println!("Python: {}", ast.to_python());
+                            }
+                        });
+                    });
                 }
             });
 
@@ -58,10 +70,11 @@ impl CASView {
             Ok(ast) => {
                 let simplified = Simplifier::simplify(&ast);
                 let result_str = format_expression(&simplified);
-                self.history.push((input, result_str));
+                self.history.push((input, simplified, result_str));
             }
             Err(e) => {
-                self.history.push((input, format!("Error: {}", e)));
+                // For error, we just push a dummy AST
+                self.history.push((input, mathcanvas_core::ast::Expression::Number(0.0), format!("Error: {}", e)));
             }
         }
         self.expression_input.clear();

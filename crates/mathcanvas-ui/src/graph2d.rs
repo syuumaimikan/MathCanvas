@@ -2,16 +2,20 @@ use egui::{Color32, Pos2, Stroke, Ui};
 use mathcanvas_core::parser::Parser;
 use mathcanvas_graph::adaptive_sampler::AdaptiveSampler;
 
+use mathcanvas_core::evaluator::Environment;
+
 pub struct Graph2DView {
     expression_input: String,
     points: Vec<(f64, f64)>,
+    pub scrub_a: f64, // Smart scrubber variable `a`
 }
 
 impl Default for Graph2DView {
     fn default() -> Self {
         Self {
-            expression_input: "sin(x)".to_string(),
+            expression_input: "sin(a * x)".to_string(),
             points: Vec::new(),
+            scrub_a: 1.0,
         }
     }
 }
@@ -29,6 +33,14 @@ impl Graph2DView {
             if response.lost_focus() && ui.input(|i| i.key_pressed(egui::Key::Enter))
                 || ui.button("Graph").clicked()
             {
+                self.update_graph();
+            }
+        });
+
+        ui.horizontal(|ui| {
+            ui.label("Smart Scrubber (a):");
+            let slider = ui.add(egui::Slider::new(&mut self.scrub_a, -10.0..=10.0).text("a"));
+            if slider.changed() {
                 self.update_graph();
             }
         });
@@ -82,7 +94,9 @@ impl Graph2DView {
 
     fn update_graph(&mut self) {
         if let Ok(ast) = Parser::parse(&self.expression_input) {
-            self.points = AdaptiveSampler::sample(&ast, -10.0, 10.0, 500);
+            let mut env = Environment::default();
+            env.variables.insert("a".to_string(), self.scrub_a);
+            self.points = AdaptiveSampler::sample(&ast, -10.0, 10.0, 500, &env);
         }
     }
 }

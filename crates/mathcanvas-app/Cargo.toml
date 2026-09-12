@@ -5,6 +5,10 @@ edition.workspace = true
 authors.workspace = true
 default-run = "mathcanvas-app"
 
+[lib]
+name = "mathcanvas_app"
+crate-type = ["cdylib", "rlib"]
+
 [dependencies]
 mathcanvas-core = { path = "../mathcanvas-core" }
 mathcanvas-platform = { path = "../mathcanvas-platform" }

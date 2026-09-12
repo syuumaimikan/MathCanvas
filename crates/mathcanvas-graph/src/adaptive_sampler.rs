@@ -4,11 +4,11 @@ use mathcanvas_core::evaluator::{evaluate, Environment};
 pub struct AdaptiveSampler;
 
 impl AdaptiveSampler {
-    pub fn sample(expr: &Expression, x_min: f64, x_max: f64, resolution: usize) -> Vec<(f64, f64)> {
+    pub fn sample(expr: &Expression, x_min: f64, x_max: f64, resolution: usize, base_env: &Environment) -> Vec<(f64, f64)> {
         let mut points = Vec::new();
         let step = (x_max - x_min) / (resolution as f64);
 
-        let mut env = Environment::default();
+        let mut env = base_env.clone();
 
         for i in 0..=resolution {
             let x = x_min + step * (i as f64);

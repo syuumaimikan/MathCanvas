@@ -1,0 +1,10 @@
+[package]
+name = "mathcanvas-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+serde.workspace = true
+thiserror.workspace = true
+uuid = { version = "1.26.1", features = ["v4"] }

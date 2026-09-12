@@ -1,0 +1,17 @@
+[package]
+name = "mathcanvas-app"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+default-run = "mathcanvas-app"
+
+[dependencies]
+mathcanvas-core = { path = "../mathcanvas-core" }
+mathcanvas-platform = { path = "../mathcanvas-platform" }
+mathcanvas-ui = { path = "../mathcanvas-ui" }
+egui.workspace = true
+eframe.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+anyhow.workspace = true

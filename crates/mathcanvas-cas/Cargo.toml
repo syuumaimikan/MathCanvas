@@ -1,0 +1,8 @@
+[package]
+name = "mathcanvas-cas"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+mathcanvas-core = { path = "../mathcanvas-core" }

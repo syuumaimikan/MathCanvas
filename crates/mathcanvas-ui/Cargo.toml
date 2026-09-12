@@ -1,0 +1,13 @@
+[package]
+name = "mathcanvas-ui"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+mathcanvas-core = { path = "../mathcanvas-core" }
+mathcanvas-platform = { path = "../mathcanvas-platform" }
+mathcanvas-graph = { path = "../mathcanvas-graph" }
+mathcanvas-cas = { path = "../mathcanvas-cas" }
+egui.workspace = true
+eframe.workspace = true
